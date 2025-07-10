@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/main.tsx', 
   output: {
     filename: 'bundle.js', 
-    path: path.resolve(__dirname, 'dist'), 
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -24,7 +24,18 @@ module.exports = {
           }
         ],
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i, // 이미지 파일 확장자
+        type: 'asset', // Asset Modules 사용
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i, // 폰트 파일 확장자
+        type: 'asset/resource', // 폰트는 항상 별도 파일로 내보내요
+        generator: {
+          filename: 'assets/[name][ext]' // 원하는 폴더와 이름 형태로 설정
+        }
+      },
     ]
   },
   resolve: {
